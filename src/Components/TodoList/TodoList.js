@@ -16,15 +16,30 @@ const todoList = (props) => {
            <ul className='todo-list' >
                
                    {
-                   props.todos.map(todoItem =>{
-                    return <Todo 
-                            todos={props.todos}
-                            setTodos={props.setTodos}  
-                            key={todoItem.text} 
-                            listItem={todoItem.text}
-                            todoItem={todoItem}
-                            // clicked={deleteHandler}
-                            />
+                   props.todoList.map(todoItem =>{
+                    //    if (props.status === 'all') {
+                        return <Todo 
+                        // filteredList={props.filteredList}
+                        todoList={props.todoList}
+                        setTodos={props.setTodos}  
+                        key={todoItem.id} 
+                        listItem={todoItem.text}
+                        todoItem={todoItem}
+                        // clicked={deleteHandler}
+                        />
+                    //    }
+                    //    else {
+                    //         return <Todo 
+                    //         // filteredList={props.filteredList}
+                    //         todoList={props.filteredList}
+                    //         setTodos={props.setTodos}  
+                    //         key={todoItem.id} 
+                    //         listItem={todoItem.text}
+                    //         todoItem={todoItem}
+                    //         // clicked={deleteHandler}
+                    //         />
+                    //    }
+                           
                    } 
                    )               
                }

@@ -6,6 +6,8 @@ import TodoList from './Components/TodoList/TodoList';
 
 class App extends Component {
 
+  // shouldComponentUpdate()
+
   state= {
     inputText: "",
     status: "all",
@@ -19,44 +21,6 @@ class App extends Component {
     this.setState({inputText: value});
   };
 
-  // filterHandler = () => {
-  //   console.log('[filterHandler Working]', this.state.filteredList)
-  //   this.setState({filteredList: null})
-  //   for (let i in this.state.todoList) {
-  //     // console.log(this.state.todoList[i])
-  //     switch (this.state.todoList[i].completionState) {
-  
-  //       case true:
-  //         if (this.state.todoList[i].completionState) {
-  //           this.state.filteredList.push(this.state.todoList[i]);
-  //         }
-  //       break;
-  
-  //       case false:
-  //         // this.setState({filteredList: null})
-  
-  //         // for (const element in this.state.todoList) {
-  //           if (!this.state.todoList[i].completionState) {
-  //             this.state.filteredList.push(this.state.todoList[i])
-  //           }
-  //         // }
-  //       break;
-  
-  //       default: 
-  //       // this.setState({filteredList: null})
-  //       // for (const i in this.state.todoList) {
-  //         this.state.filteredList.push(this.state.todoList[i])
-  //       // }
-  
-        
-          
-  //     }
-
-  //    }
-    
-  //   {console.log(this.state.filteredList)}
-  // }
-
   submitHandler = (e) => {
     e.preventDefault();
     const newList = [
@@ -65,6 +29,7 @@ class App extends Component {
     newList.push(
         {text: this.state.inputText,
         completionState: false,
+        id: Math.random(),
         status: 'all' }
         );
     this.setState({inputText: "", todoList: newList});
@@ -72,43 +37,57 @@ class App extends Component {
   }
 
   setTodos = (newTodoData) => {
-    this.setState({ todoList: newTodoData});
-    console.log('App me set todos me set state se update] =', this.state.todoList)
+    this.setState({filteredList: newTodoData, todoList: newTodoData});
+    // console.log('App me set todos me set state se update] =', this.state.todoList)
   }
 
   setStatus = (newStatus) => {
     this.setState({ status: newStatus}, () => {
-        // console.log('[Set Status from App.js], status=',
+        // console.log('[Status Update], status=',
         // this.state.status, ', newStatus=', newStatus)
        } 
     );
-    this.filterHandler();
-    console.log('external:', this.state.filteredList);
+    this.filterHandler(newStatus);
+    // console.log('external:', this.state.filteredList);
     
   }
 
-  filterHandler = () => {
-    this.setState( { filteredList: []});
-    for (let i in this.state.todoList) {
-      // console.log(this.state.status);
-        if( this.state.status = 'completed') {
-          console.log('chal rhaaaa haiiiiiiiiii', this.state.status)
-          if(this.state.todoList[i].completionState){
-            this.state.filteredList.push(this.state.todoList[i])
-          }
+  filterHandler = async (newStatus) => {
+    await this.setState( { filteredList: []});
+    if( newStatus === 'completed') {
+      console.log('[Filter Handler Completed]')
+      const updatingFilteredList = [...this.state.filteredList];
+      for (let i in this.state.todoList) {
+        if(this.state.todoList[i].completionState){
+          updatingFilteredList.push(this.state.todoList[i])
         }
-        else if( this.state.status = 'uncompleted') {
-          if(!this.state.todoList[i].completionState) {
-            this.state.filteredList.push(this.state.todoList[i])
-           }  
-        }
-        else {
-          this.state.filteredList.push(this.state.todoList[i])
-        }
-        // console.log( this.state.todoList[i])
+      }
+      this.setState({filteredList: updatingFilteredList}, () => 
+          {console.log('[Filtered List Finally, Completed]:', this.state.filteredList);})
+    }
+
+    else if( newStatus === 'uncompleted') {
+      console.log('[Filter Handler Uncompleted]')
+      const updatingFilteredList = [...this.state.filteredList]
+      for (let i in this.state.todoList) {
+        if(!this.state.todoList[i].completionState) {
+          updatingFilteredList.push(this.state.todoList[i])
+        }  
+        this.setState({filteredList: updatingFilteredList}, () => console
+          .log('[Final Filtered List, Uncompleted] =', this.state.filteredList))
+      }
+    }
+
+    else {
+      const updatingFilteredList = [...this.state.filteredList]
+      for (let i in this.state.todoList) {
+        updatingFilteredList.push(this.state.todoList[i])
+      }
+      this.setState({filteredList: updatingFilteredList}, () => console
+      .log('[Final Filtered List, All] =', this.state.filteredList))
     }
     
-    console.log(this.state.filteredList)
+    // console.log(this.state.filteredList)
   }
 
   render () {
@@ -122,7 +101,13 @@ class App extends Component {
        value={this.state.inputText}  
        btnClick={this.submitHandler}
        change={this.inputTextHandler} />
-      <TodoList setTodos={this.setTodos}  todos={this.state.todoList}> </TodoList>
+      <TodoList 
+        status={this.state.status} 
+        setTodos={this.setTodos} 
+        filteredList={this.state.filteredList} 
+        todoList={ this.state.status === 'all' ? this.state.todoList: this.state.filteredList}
+          
+        > </TodoList>
       {/* {console.log('App me status', this.state.status)} */}
      
     </div>
