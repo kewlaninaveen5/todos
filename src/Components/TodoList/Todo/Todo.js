@@ -6,11 +6,13 @@ const todo = (props) => {
         console.log('pehle', props.todoList);
 
         console.log('delete wala', props.todoItem);
-        const value = props.todoList.filter(el => el.id !== props.todoItem.id);
+        const value = props.todoItem
+        // [...props.todoList];
+        // value.filter(el => el.id !== props.todoItem.id);
         // console.log('value', value)
        
-        props.setTodos(value);
-        // console.log('badme', props.todos);
+        props.setTodosByDelete(value);
+        console.log('badme', props.todoList);
     }
   
     const completeHandler = () => {
@@ -23,7 +25,7 @@ const todo = (props) => {
                 }
             return el 
             } );
-            props.setTodos(value);     
+            props.setTodosByComplete(value);     
         
     }
 

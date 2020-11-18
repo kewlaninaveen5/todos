@@ -21,7 +21,8 @@ const todoList = (props) => {
                         return <Todo 
                         // filteredList={props.filteredList}
                         todoList={props.todoList}
-                        setTodos={props.setTodos}  
+                        setTodosByDelete={props.setTodosByDelete}
+                        setTodosByComplete={props.setTodosByComplete}  
                         key={todoItem.id} 
                         listItem={todoItem.text}
                         todoItem={todoItem}

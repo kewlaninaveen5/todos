@@ -36,7 +36,15 @@ class App extends Component {
  
   }
 
-  setTodos = (newTodoData) => {
+  setTodosByDelete = (deletedItem) => {
+    const valueInTodoList = this.state.todoList.filter(el => el.id !== deletedItem.id)
+    const valueInFilteredList = this.state.filteredList.filter(el => el.id !== deletedItem.id)
+    this.setState({todoList: valueInTodoList, filteredList: valueInFilteredList},() =>
+       console.log('[new Todo list after deletion]', valueInTodoList,
+        '/n', '[filtered]', valueInFilteredList ))
+  }
+
+  setTodosByComplete = (newTodoData) => {
     this.setState({filteredList: newTodoData, todoList: newTodoData});
     // console.log('App me set todos me set state se update] =', this.state.todoList)
   }
@@ -103,7 +111,8 @@ class App extends Component {
        change={this.inputTextHandler} />
       <TodoList 
         status={this.state.status} 
-        setTodos={this.setTodos} 
+        setTodosByDelete={this.setTodosByDelete} 
+        setTodosByComplete={this.setTodosByComplete} 
         filteredList={this.state.filteredList} 
         todoList={ this.state.status === 'all' ? this.state.todoList: this.state.filteredList}
           
