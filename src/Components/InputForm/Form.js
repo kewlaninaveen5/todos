@@ -8,36 +8,12 @@ class Form extends Component {
         todoList: []
     };
 
-    // sideDrawerClosedHandler = () => {
-    //    
-    // };
-
-    // inputTextHandler = (e) =>{
-    //     const value = e.target.value;
-    //     this.setState({inputText: value});
-    // };
-
-    // submitHandler = (e) => {
-    //     e.preventDefault();
-    //     const newList = [
-    //         ...this.state.todoList
-    //     ]
-    //     newList.push(
-    //         {text: this.state.inputText,
-    //         completionState: false}
-    //         );
-    //     this.setState({inputText: "", todoList: newList});
-    //     // console.log(newList);
-        
-        
-    // }
-
     render () {
 
         const statusHandler = (event) => {
             this.props.setStatus(event.target.value);
             // const even = event;
-            console.log(event.target.value);
+            // console.log(event.target.value);
         }
 
         return (

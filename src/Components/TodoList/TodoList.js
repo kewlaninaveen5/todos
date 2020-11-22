@@ -26,20 +26,9 @@ const todoList = (props) => {
                         key={todoItem.id} 
                         listItem={todoItem.text}
                         todoItem={todoItem}
-                        // clicked={deleteHandler}
+                      
                         />
-                    //    }
-                    //    else {
-                    //         return <Todo 
-                    //         // filteredList={props.filteredList}
-                    //         todoList={props.filteredList}
-                    //         setTodos={props.setTodos}  
-                    //         key={todoItem.id} 
-                    //         listItem={todoItem.text}
-                    //         todoItem={todoItem}
-                    //         // clicked={deleteHandler}
-                    //         />
-                    //    }
+                    
                            
                    } 
                    )               

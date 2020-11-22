@@ -3,16 +3,16 @@ import React from 'react';
 const todo = (props) => {
 
     const deleteHandler = () => {
-        console.log('pehle', props.todoList);
+        // console.log('pehle', props.todoList);
 
-        console.log('delete wala', props.todoItem);
+        // console.log('delete wala', props.todoItem);
         const value = props.todoItem
         // [...props.todoList];
         // value.filter(el => el.id !== props.todoItem.id);
         // console.log('value', value)
        
         props.setTodosByDelete(value);
-        console.log('badme', props.todoList);
+        // console.log('badme', props.todoList);
     }
   
     const completeHandler = () => {
